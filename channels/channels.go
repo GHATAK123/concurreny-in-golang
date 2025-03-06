@@ -27,6 +27,7 @@ func getData(ch chan string) {
 	for input := range ch {
 		fmt.Printf("%s ", input)
 	}
+	fmt.Println()
 }
 
 func Helper() {
