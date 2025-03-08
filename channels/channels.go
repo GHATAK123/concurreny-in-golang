@@ -36,6 +36,41 @@ func Helper() {
 	go sendData(ch)
 	go getData(ch)
 	time.Sleep(1e9)
+	pipeLineConcurrencyPattern()
+}
+
+func sliceToChannel(nums []int) <-chan int {
+	out := make(chan int)
+	go func() {
+		for _, n := range nums {
+			out <- n
+		}
+		close(out)
+	}()
+
+	return out
+}
+
+func square(ch <-chan int) <-chan int {
+	out := make(chan int)
+	go func() {
+		for n := range ch {
+			out <- n * n
+		}
+		close(out)
+	}()
+
+	return out
+}
+
+func pipeLineConcurrencyPattern() {
+	nums := []int{2, 4, 6, 8, 9}
+	stage1 := sliceToChannel(nums)
+	stage2 := square(stage1)
+	for v := range stage2 {
+		fmt.Printf("%v ", v)
+	}
+	fmt.Println()
 }
 
 // buffered channel | Asynchronus | Non-blocking

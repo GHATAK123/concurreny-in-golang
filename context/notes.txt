@@ -1,0 +1,25 @@
+ The context package in Go provides a way to manage deadlines, cancellations, and values across API boundaries and between goroutines.
+ It helps avoid leaked goroutines and ensures efficient resource management.
+
+ Uses of Context
+ Graceful cancellation → Stop goroutines when no longer needed.
+ Timeout control → Prevent long-running operations from blocking execution.
+ Passing request-scoped values → Share metadata like user authentication tokens.
+
+ context.Background()	                           Default empty context, used at the top level of the application.
+ context.TODO()	                                   Placeholder when the context is not yet available.
+ context.WithCancel(ctx)	                       Creates a context that can be manually canceled.
+ context.WithTimeout(ctx, t)	                   Cancels automatically after a timeout.
+ context.WithDeadline(ctx, time)	               Cancels at a specific time.
+ context.WithValue(ctx, key, value)	               Pass metadata across goroutines.
+
+ context.Background()
+ This is a root context and is generally used for initializing other contexts.
+ ctx := context.Background()
+ Creating a base context in main(), init(), or top-level functions.
+
+ context.TODO()
+ Used when you're unsure which context to use but need a placeholder.
+ ctx := context.TODO()
+ Work in progress code.
+ Temporary placeholder before adding proper context logic.
