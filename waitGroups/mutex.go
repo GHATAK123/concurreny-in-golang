@@ -10,7 +10,7 @@ var lock sync.Mutex
 
 func ProcessValue(data int) int {
 	time.Sleep(time.Second * 2)
-	return data * 2
+	return data * data
 }
 
 func ProcessData(wg *sync.WaitGroup, res *[]int, data int) {

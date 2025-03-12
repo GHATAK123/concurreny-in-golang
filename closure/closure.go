@@ -23,7 +23,7 @@ func basicClosure() {
 	}()
 
 	// 	✅ Explanation:
-	// The anonymous function inside sayHello accesses the message variable from the outer function.
+	// The anonymous function inside basicClosure accesses the message variable from the outer function.
 	// Even though message is declared outside the function, the closure remembers its value.
 }
 
