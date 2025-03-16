@@ -1,0 +1,43 @@
+📌 End-to-End Communication Flow
+
+🔹 Services and Their Responsibilities
+User Service → Manages user accounts & authentication.
+Transaction Service → Records purchases and payments.
+Loyalty Points Service → Calculates and updates user loyalty points.
+Rewards Service → Manages reward redemptions.
+Notification Service → Sends email/SMS notifications.
+Analytics Service → Tracks user behavior and transaction trends.
+Kafka/Event Broker → Facilitates event-driven communication.
+
+
+📌 End-to-End Communication Flow
+1️⃣ User Makes a Purchase (Transaction Service)
+The User Service authenticates the user.
+The Transaction Service records the purchase and updates the Transaction DB.
+The Transaction Service:
+Calls Loyalty Points Service (REST API) → to update loyalty points.
+Publishes an event (TransactionCompleted) to Kafka → notifying other services.
+
+2️⃣ Loyalty Points Service Updates Points
+The Loyalty Points Service receives the API request from Transaction Service.
+It calculates earned points and updates the Loyalty Points DB.
+If the user reaches a reward threshold, it:
+Calls Rewards Service (REST API) → to check for redeemable rewards.
+Publishes an event (LoyaltyPointsUpdated) to Kafka → notifying analytics & notifications.
+
+3️⃣ Notification Service Triggers User Alerts
+Notification Service listens to Kafka (TransactionCompleted & LoyaltyPointsUpdated).
+Based on the events, it sends:
+"Points Earned" SMS/Email after a transaction.
+"You have enough points to redeem" notification when reaching a reward threshold.
+
+4️⃣ Rewards Service Manages Redemptions
+When a user redeems a reward:
+Rewards Service deducts loyalty points (API call to Loyalty Points Service).
+It updates the Rewards DB.
+Sends a Kafka event (RewardRedeemed) → notifying Analytics & Notifications.
+
+5️⃣ Analytics Service Records Transactions
+The Analytics Service listens to Kafka events (TransactionCompleted, LoyaltyPointsUpdated, RewardRedeemed).
+Updates engagement metrics in Analytics DB.
+Generates reports on user behavior, transactions, and reward redemptions.

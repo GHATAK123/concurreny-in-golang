@@ -1,8 +1,6 @@
 package main
 
-import (
-	"concurrency-in-go/channels"
-)
+import "concurrency-in-go/api"
 
 func main() {
 	// fmt.Println("Concurrency In Golang!!!")
@@ -13,7 +11,7 @@ func main() {
 	// channels.FanInFanOutConcurrenyPattern()
 	// closure.Helper()
 	// channels.SquareHelper()
-	channels.EventDrivenArchitecture()
+	// channels.EventDrivenArchitecture()
 	// 	generics.Helper()
 	// 	ood.Helper()
 	// 	ood.CompositionHelper()
@@ -23,4 +21,5 @@ func main() {
 	// 	context.TimeOutHelper()
 	// 	context.DeadlineHelper()
 	// 	context.ValueHelper()
+	api.Retry()
 }
